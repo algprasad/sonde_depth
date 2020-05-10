@@ -4,6 +4,7 @@
 CMakeFiles/lower_sonde.dir/src/lower_sonde.cpp.o
  /home/alg/misc_ws/src/lower_sonde/src/lower_sonde.cpp
  /opt/ros/kinetic/include/gazebo_msgs/ModelState.h
+ /opt/ros/kinetic/include/gazebo_msgs/ModelStates.h
  /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/geometry_msgs/Pose.h
  /opt/ros/kinetic/include/geometry_msgs/Quaternion.h
