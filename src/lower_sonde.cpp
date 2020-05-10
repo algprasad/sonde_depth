@@ -3,14 +3,18 @@
 #include <gazebo_msgs/ModelState.h>
 #include <gazebo_msgs/ModelStates.h>
 
+///including the Link states
+#include <gazebo_msgs/LinkState.h>
+
+
 geometry_msgs::Pose global_pose_sonde;
 double velocity = 0.01;
 
-void setSondePose(int i, gazebo_msgs::ModelState& pose_sonde){
-    pose_sonde.model_name = "unit_cylinder";
-    pose_sonde.pose.position.x = global_pose_sonde.position.x;
-    pose_sonde.pose.position.y = 0;
-    pose_sonde.pose.position.z = global_pose_sonde.position.z + velocity*i;
+void setSondePose(int i, gazebo_msgs::LinkState& pose_sonde){
+    pose_sonde.link_name = "practice_sonde";
+    pose_sonde.pose.position.x = 0 ; //global_pose_sonde.position.x;
+    pose_sonde.pose.position.y = 2; //global_pose_sonde.position.y; 
+    pose_sonde.pose.position.z = 2; //global_pose_sonde.position.z + 2; 
     std::cout<<pose_sonde.pose.position.z<<std::endl;
 
     pose_sonde.pose.orientation.x = 0;
@@ -27,7 +31,7 @@ void setSondePose(int i, gazebo_msgs::ModelState& pose_sonde){
     pose_sonde.twist.linear.z = 0;
 
 
-    pose_sonde.reference_frame = 'world';
+    pose_sonde.reference_frame = "base_link";
 
 
 }
@@ -46,7 +50,7 @@ int main(int argc, char **argv){
 	ros::NodeHandle nh;
 
 	// Publisher and Subsriber stuff
-	ros::Publisher set_sonde_pose_pub = nh.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
+	ros::Publisher set_sonde_pose_pub = nh.advertise<gazebo_msgs::LinkState>("/gazebo/set_link_state", 1000);
 
 
     ros::Subscriber sub = nh.subscribe("/gazebo/model_states", 1000, sondePoseCallback);
@@ -55,7 +59,7 @@ int main(int argc, char **argv){
 	int i =1;
     ros::Rate rate(20);
 	//define the position of the sonde
-	gazebo_msgs::ModelState pose_sonde;
+	gazebo_msgs::LinkState pose_sonde;
 	while(ros::ok()){
 
 	    setSondePose(i, pose_sonde);
